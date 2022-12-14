@@ -7,10 +7,18 @@
         <title>Laravel</title>
 
         <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
+
+        <style type="text/css">
+            html, body, #v-app {
+                height: 100%;
+                margin: 0px;
+                padding: 0px;
+            }
+        </style>
     </head>
     <body>
-        <div id="app">
-            <example-component/>
+        <div id="v-app">
+            <app/>
         </div>
 
         <script src="{{ asset('js/app.js') }}"></script>

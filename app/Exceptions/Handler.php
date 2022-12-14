@@ -3,6 +3,8 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -36,6 +38,18 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (Throwable $e) {
             //
+        });
+        $this->renderable(function (ValidationException $e) {
+            return response([
+                'message' => 'Validation error.',
+                'errors' => $e->errors(),
+            ], $e->status);
+        });
+        $this->renderable(function (BadRequestException $e) {
+            return response([
+                'message' => 'Something went wrong.',
+                'errors' => $e->getMessage(),
+            ], 400);
         });
     }
 }
